@@ -1,14 +1,37 @@
 {
-  "name": "mykeyshopapi",
+  "name": "webshop",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server.js",
+    "test": "mocha --watch \"./**/*spec.js\" --reporter min"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "chai-as-promised": "^7.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "helmet": "^4.2.0",
+    "mongoose": "^5.10.14",
+    "mongoose-autopopulate": "^0.12.3",
+    "morgan": "^1.10.0",
+    "neo4j-driver": "^4.2.1",
+    "nodemon": "^1.18.5"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^5.2.0"
   }
 }
