@@ -1,14 +1,17 @@
-const express = require('express')
-const router = express.Router()
+const express = require("express");
+const CrudController = require("../controllers/crud");
+const Order = require("../models/order.model")();
+const router = express.Router();
 
-const orderController = require('../controllers/order.controller')
+const orderCrudController = new CrudController(Order);
+const orderController = require("../controllers/order.controller");
 
 // maybe better with query params, wink wink, hint hint
 
-router.get('/user/:id/orders/simple', orderController.simple)
+router.post("/", orderCrudController.create);
 
-router.get('/user/:id/orders/similar', orderController.similar)
+router.get("/", orderCrudController.getAll);
 
-router.get('/user/:id/orders/keyed', orderController.keyed)
+router.get("/:id", orderCrudController.getOne);
 
-module.exports = router
+module.exports = router;
