@@ -17,7 +17,7 @@ class CrudController {
   };
 
   getAll = async (req, res, next) => {
-    const entities = await this.model.find().then("TotalPrice");
+    const entities = await this.model.find();
     res.status(200).json(entities);
   };
 

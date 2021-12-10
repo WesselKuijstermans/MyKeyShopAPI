@@ -13,64 +13,39 @@ const Key = require("./key.model")();
 const KeyControllerHelper = require("../controllers/key.controller");
 const HardwareControllerHelper = require("../controllers/hardware.controller");
 
+
 const KeyControllerHelperClass = new KeyControllerHelper(Key);
 const HardwareControllerHelperClass = new HardwareControllerHelper(hardware);
 
-const OrderSchema = new Schema(
-  {
-    // a order needs to have a name
-    buyer: {
-      type: Schema.Types.ObjectId,
-      required: [true, "A buyer needs to be attached to an order."],
-      ref: "user",
-    },
-    products: {
-      gamekeys: [
-        {
-          type: Schema.Types.ObjectId,
-          ref: "game",
-        },
-      ],
-      hardware: [
-        {
-          type: Schema.Types.ObjectId,
-          ref: "hardware",
-        },
-      ],
+const OrderSchema = new Schema({
+  // a order needs to have a name
+  buyer: {
+    type: Schema.Types.ObjectId,
+    required: [true, "A buyer needs to be attached to an order."],
+    ref: "user",
+  },
+  products: {
+    gamekeys: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "game",
+      },
+    ],
+    hardware: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "hardware",
+      },
+    ],
+  },
+  totalPrice: {
+    type: Number,
+    required: [true, "An order needs a price."],
+    validate: {
+      validator: (price) => price >= 0,
+      message: "A price needs to be positive.",
     },
   },
-  {
-    toObject: { virtuals: true },
-    toJSON: { virtuals: true },
-  }
-);
-
-OrderSchema.virtual("TotalPrice").get(async function () {
-  var totalPrice = 0;
-  //   this.products.gamekeys, this.products.hardware);
-
-  if (this.products.gamekeys != undefined) {
-    for (let key of this.products.gamekeys) {
-      if (key != undefined) {
-        const entity = await KeyControllerHelperClass.getOne(key);
-        totalPrice += Number(entity.price);
-      }
-    }
-  }
-  if (this.products.hardware != undefined) {
-    for (let hardware of this.products.hardware) {
-      if (hardware != undefined) {
-        const entity = await HardwareControllerHelperClass.getOne(hardware);
-        totalPrice += Number(entity.price);
-      }
-    }
-  }
-  console.log(totalPrice);
-  if (totalPrice > 0) {
-    return totalPrice;
-  } else {
-    return res.status(400);
-  }
 });
 
 OrderSchema.post("validate", function (req, res, next) {

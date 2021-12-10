@@ -31,13 +31,16 @@ app.use(helmet());
 app.use(morgan("dev"));
 
 const userRoutes = require("./routes/user.routes");
+const authRoutes = require("./routes/authentication.routes")
 const gameRoutes = require("./routes/game.routes");
 const hardwareRoutes = require("./routes/hardware.routes");
 const keyRoutes = require("./routes/key.routes");
 const orderRoutes = require("./routes/order.routes");
+
 const errors = require("./errors");
 
 app.use("/user", userRoutes);
+app.use("/user", authRoutes);
 app.use("/game", gameRoutes);
 app.use("/hardware", hardwareRoutes);
 app.use("/", keyRoutes);
