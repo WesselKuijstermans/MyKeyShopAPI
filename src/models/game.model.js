@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const getModel = require("./model_cache");
 
 // we use the key schema in the game schema
-const KeySchema = require("./key.schema");
+const KeySchema = require("./key.model");
 
 // define the game schema
 const GameSchema = new Schema(

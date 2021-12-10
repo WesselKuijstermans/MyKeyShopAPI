@@ -1,6 +1,6 @@
 const neo = require('../../neo')
 
-const game = require('../models/game.model')()
+const order = require('../models/order.model')()
 
 async function getOrders(query, req, res) {
     const session = neo.session()
@@ -11,11 +11,11 @@ async function getOrders(query, req, res) {
 
     // we only expect 1 row with results, containing an array of game ids in the field 'gameIds'
     // see the queries in neo.js for what is returned
-    const gameIds = result.records[0].get('gameIds')
+    const orderIds = result.records[0].get('orderIds')
     
     session.close()
     
-    const orders = await game.find({_id: {$in: gameIds}})
+    const orders = await game.find({_id: {$in: orderIds}})
     
     res.status(200).json(orders)
 }

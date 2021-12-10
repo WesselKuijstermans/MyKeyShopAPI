@@ -40,11 +40,8 @@ const errors = require("./errors");
 app.use("/user", userRoutes);
 app.use("/game", gameRoutes);
 app.use("/hardware", hardwareRoutes);
-app.use("/key", keyRoutes);
+app.use("/", keyRoutes);
 app.use("/order", orderRoutes);
-// app.use('/exercise', exerciseRoutes)
-// app.use('/training', trainingRoutes)
-// app.user('/trainingSchedule', trainingScheduleRoutes)
 
 // catch all not found response
 app.use("*", function (_, res) {

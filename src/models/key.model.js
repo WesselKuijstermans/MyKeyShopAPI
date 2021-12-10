@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const getModel = require("./model_cache");
+
 // define a schema for keys
 const KeySchema = new Schema({
   redeemCode: String,
@@ -22,4 +24,4 @@ const KeySchema = new Schema({
 });
 
 // export the key schema
-module.exports = KeySchema;
+module.exports = getModel("key", KeySchema);

@@ -25,6 +25,6 @@ router.put('/:id', HardwareCrudController.update)
 router.delete('/:id', HardwareCrudController.delete)
 
 // purchase a hardware (not entirely restful *blush*)
-router.post('/:id/purchase', HardwareController.purchase)
+// router.post('/:id/purchase', HardwareController.purchase)
 
 module.exports = router
