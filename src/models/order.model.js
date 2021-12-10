@@ -12,7 +12,6 @@ const Key = require("./key.model")();
 
 const KeyControllerHelper = require("../controllers/key.controller");
 const HardwareControllerHelper = require("../controllers/hardware.controller");
-const { json } = require("express/lib/response");
 
 const KeyControllerHelperClass = new KeyControllerHelper(Key);
 const HardwareControllerHelperClass = new HardwareControllerHelper(hardware);
@@ -46,7 +45,7 @@ const OrderSchema = new Schema(
   }
 );
 
-OrderSchema.virtual("TotalPrice").get(function () {
+OrderSchema.virtual("TotalPrice").get(async function () {
   var totalPrice = 0;
   //   this.products.gamekeys, this.products.hardware);
 
